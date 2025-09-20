@@ -1,3 +1,6 @@
 secret.txt
 logs/
 *.env
+__pycache__/
+*.pyc
+localStorage.json
