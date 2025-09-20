@@ -1,0 +1,681 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up for AI Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 415px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .signup-container:hover { transform: translateY(-2px); }
+
+        .logo { text-align: center; margin-bottom: 24px; }
+
+        .logo h1 { color: #2d3748; font-size: 26px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.5px; }
+        .logo p { color: #718096; font-size: 14px; font-weight: 400; }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block;
+            color: #2d3748;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: 0.025em;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+            transform: translateY(-1px);
+        }
+        .form-group input:hover { border-color: #cbd5e0; }
+
+        .signup-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 6px;
+            letter-spacing: 0.025em;
+        }
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+        }
+        .signup-btn:active { transform: translateY(0); }
+
+        .divider { text-align: center; margin: 32px 0; position: relative; }
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        .divider span {
+            background: rgba(255, 255, 255, 0.95);
+            color: #718096;
+            padding: 0 20px;
+            font-size: 14px;
+        }
+
+        .login-link { text-align: center; margin-top: 16px; }
+        .login-link p { color: #718096; font-size: 13px; }
+        .login-link a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        .login-link a:hover { color: #ea580c; text-decoration: underline; }
+
+        .terms-link { text-align: center; margin-top: 12px; }
+        .terms-link p { color: #718096; font-size: 11px; line-height: 1.4; }
+        .terms-link a { color: #f97316; text-decoration: none; transition: color 0.2s ease; }
+        .terms-link a:hover { color: #ea580c; text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            .signup-container { padding: 32px 24px; margin: 16px; border-radius: 16px; }
+            .logo h1 { font-size: 28px; }
+            .form-group input { padding: 14px; font-size: 16px; }
+            .signup-btn { padding: 14px; font-size: 16px; }
+            .form-group { margin-bottom: 18px; }
+        }
+
+        .loading { opacity: 0.7; pointer-events: none; }
+        .loading .signup-btn { background: #a0aec0; cursor: not-allowed; }
+
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 6s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .password-strength { height: 3px; background: #e2e8f0; border-radius: 2px; margin-top: 6px; overflow: hidden; }
+        .password-strength-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ef4444, #f97316, #22c55e); transition: width 0.3s ease; border-radius: 2px; }
+        .password-strength.weak .password-strength-fill { width: 33%; background: #ef4444; }
+        .password-strength.medium .password-strength-fill { width: 66%; background: #f97316; }
+        .password-strength.strong .password-strength-fill { width: 100%; background: #22c55e; }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo">
+            <h1>AI Assistant</h1>
+            <p>Create your account</p>
+        </div>
+        
+        <form method="post" action="/signup" id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="father_name">Father's Name</label>
+                <input type="text" id="father_name" name="father_name" required placeholder="Enter your father's name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a password">
+                <div class="password-strength" id="passwordStrength">
+                    <div class="password-strength-fill"></div>
+                </div>
+            </div>
+            
+            <button type="submit" class="signup-btn" id="signupBtn">
+                Create Account
+            </button>
+            
+            <div class="terms-link">
+                <p>By creating an account, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></p>
+            </div>
+        </form>
+        
+        <div class="divider"><span>or</span></div>
+        
+        <div class="login-link">
+            <p>Already have an account? <a href="login">Sign in</a></p>
+        </div>
+    </div>
+
+    <script>
+        // LocalStorage functions
+        function getUsers() { return JSON.parse(localStorage.getItem("users")) || {}; }
+        function saveUsers(users) { localStorage.setItem("users", JSON.stringify(users)); }
+
+        const form = document.getElementById('signupForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('signupBtn');
+            const container = document.querySelector('.signup-container');
+
+            const name = document.getElementById('name').value.trim();
+            const father = document.getElementById('father_name').value.trim();
+            const email = document.getElementById('email').value.toLowerCase().trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!name || !father || !email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const users = getUsers();
+            if(users[email]) {
+                alert('Email already registered! Please login.');
+                return;
+            }
+
+            container.classList.add('loading');
+            btn.textContent = 'Creating Account...';
+
+            setTimeout(() => {
+                container.classList.remove('loading');
+                btn.textContent = 'Create Account';
+
+                users[email] = { name: name, fatherName: father, password: password };
+                saveUsers(users);
+
+                alert('Account created successfully! You can now login.');
+                form.reset();
+                window.location.href = '/login';
+            }, 1000);
+        });
+
+        // Enhanced focus animations
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() { this.parentElement.style.transform = 'translateX(2px)'; });
+            input.addEventListener('blur', function() { this.parentElement.style.transform = 'translateX(0)'; });
+        });
+
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthIndicator = document.getElementById('passwordStrength');
+
+            let strength = 0;
+            if(password.length >= 8) strength++;
+            if(/[a-z]/.test(password)) strength++;
+            if(/[A-Z]/.test(password)) strength++;
+            if(/[0-9]/.test(password)) strength++;
+            if(/[^A-Za-z0-9]/.test(password)) strength++;
+
+            strengthIndicator.classList.remove('weak','medium','strong');
+            if(strength <= 2 && password.length > 0) strengthIndicator.classList.add('weak');
+            else if(strength <= 3) strengthIndicator.classList.add('medium');
+            else if(strength >= 4) strengthIndicator.classList.add('strong');
+        });
+
+        // Email validation feedback
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(email && !emailRegex.test(email)){
+                this.style.borderColor = '#ef4444';
+                this.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+            } else {
+                this.style.borderColor = '#e2e8f0';
+                this.style.boxShadow = 'none';
+            }
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('signupForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    // Disable autocomplete
+    form.setAttribute('autocomplete', 'off');
+    emailInput.setAttribute('autocomplete', 'off');
+    passwordInput.setAttribute('autocomplete', 'new-password');
+
+    // Add hidden dummy input at top
+    const dummy = document.createElement('input');
+    dummy.type = 'text';
+    dummy.name = 'fakeusernameremembered';
+    dummy.style.display = 'none';
+    form.prepend(dummy);
+
+    // Function to clear inputs
+    function clearFields() {
+        emailInput.value = '';
+        passwordInput.value = '';
+    }
+
+    // Clear on load
+    clearFields();
+
+    // Clear continuously every 100ms until user types
+    let cleared = false;
+    const interval = setInterval(() => {
+        if (!emailInput.matches(':focus') && !passwordInput.matches(':focus')) {
+            clearFields();
+        } else {
+            cleared = true;
+            clearInterval(interval); // stop clearing once user starts typing
+        }
+    }, 100);
+
+    // Clear when user focuses
+    emailInput.addEventListener('focus', () => { emailInput.value = ''; });
+    passwordInput.addEventListener('focus', () => { passwordInput.value = ''; });
+});
+
+
+    </script>
+    <script src="js/auth.js"></script>
+    <script src="js/signup.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up for AI Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 415px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .signup-container:hover { transform: translateY(-2px); }
+
+        .logo { text-align: center; margin-bottom: 24px; }
+
+        .logo h1 { color: #2d3748; font-size: 26px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.5px; }
+        .logo p { color: #718096; font-size: 14px; font-weight: 400; }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block;
+            color: #2d3748;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: 0.025em;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+            transform: translateY(-1px);
+        }
+        .form-group input:hover { border-color: #cbd5e0; }
+
+        .signup-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 6px;
+            letter-spacing: 0.025em;
+        }
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+        }
+        .signup-btn:active { transform: translateY(0); }
+        .signup-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider { text-align: center; margin: 32px 0; position: relative; }
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        .divider span {
+            background: rgba(255, 255, 255, 0.95);
+            color: #718096;
+            padding: 0 20px;
+            font-size: 14px;
+        }
+
+        .login-link { text-align: center; margin-top: 16px; }
+        .login-link p { color: #718096; font-size: 13px; }
+        .login-link a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        .login-link a:hover { color: #ea580c; text-decoration: underline; }
+
+        .terms-link { text-align: center; margin-top: 12px; }
+        .terms-link p { color: #718096; font-size: 11px; line-height: 1.4; }
+        .terms-link a { color: #f97316; text-decoration: none; transition: color 0.2s ease; }
+        .terms-link a:hover { color: #ea580c; text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            .signup-container { padding: 32px 24px; margin: 16px; border-radius: 16px; }
+            .logo h1 { font-size: 28px; }
+            .form-group input { padding: 14px; font-size: 16px; }
+            .signup-btn { padding: 14px; font-size: 16px; }
+            .form-group { margin-bottom: 18px; }
+        }
+
+        .loading { opacity: 0.7; pointer-events: none; }
+
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 6s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .password-strength { height: 3px; background: #e2e8f0; border-radius: 2px; margin-top: 6px; overflow: hidden; }
+        .password-strength-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ef4444, #f97316, #22c55e); transition: width 0.3s ease; border-radius: 2px; }
+        .password-strength.weak .password-strength-fill { width: 33%; background: #ef4444; }
+        .password-strength.medium .password-strength-fill { width: 66%; background: #f97316; }
+        .password-strength.strong .password-strength-fill { width: 100%; background: #22c55e; }
+
+        .error-message, .success-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 13px;
+            display: none;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo">
+            <h1>AI Assistant</h1>
+            <p>Create your account</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="father_name">Father's Name</label>
+                <input type="text" id="father_name" name="father_name" required placeholder="Enter your father's name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a password">
+                <div class="password-strength" id="passwordStrength">
+                    <div class="password-strength-fill"></div>
+                </div>
+            </div>
+            
+            <button type="submit" class="signup-btn" id="signupBtn">
+                Create Account
+            </button>
+            
+            <div class="terms-link">
+                <p>By creating an account, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></p>
+            </div>
+        </form>
+        
+        <div class="divider"><span>or</span></div>
+        
+        <div class="login-link">
+            <p>Already have an account? <a href="/login">Sign in</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Show message function
+        function showMessage(message, type) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            
+            // Hide both messages first
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            if (type === 'error') {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            } else if (type === 'success') {
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+            }
+        }
+
+        // Form submission
+        const form = document.getElementById('signupForm');
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('signupBtn');
+            const container = document.querySelector('.signup-container');
+
+            const name = document.getElementById('name').value.trim();
+            const father_name = document.getElementById('father_name').value.trim();
+            const email = document.getElementById('email').value.toLowerCase().trim();
+            const password = document.getElementById('password').value.trim();
+
+            // Client-side validation
+            if (!name || !father_name || !email || !password) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('Password must be at least 6 characters long', 'error');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+
+            // Show loading state
+            container.classList.add('loading');
+            btn.disabled = true;
+            btn.textContent = 'Creating Account...';
+            showMessage('', ''); // Clear messages
+
+            try {
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('father_name', father_name);
+                formData.append('email', email);
+                formData.append('password', password);
+
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('Account created successfully! Redirecting to login...', 'success');
+                    form.reset();
+                    
+                    // Redirect after success
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 2000);
+                } else {
+                    showMessage(data.error || 'Failed to create account', 'error');
+                }
+
+            } catch (error) {
+                console.error('Signup error:', error);
+                showMessage('Network error. Please try again.', 'error');
+            } finally {
+                container.classList.remove('loading');
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+            }
+        });
+
+        // Enhanced focus animations
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() { 
+                this.parentElement.style.transform = 'translateX(2px)'; 
+            });
+            input.addEventListener('blur', function() { 
+                this.parentElement.style.transform = 'translateX(0)'; 
+            });
+        });
+
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthIndicator = document.getElementById('passwordStrength');
+
+            let strength = 0;
+            if(password.length >= 8) strength++;
+            if(/[a-z]/.test(password)) strength++;
+            if(/[A-Z]/.test(password)) strength++;
+            if(/[0-9]/.test(password)) strength++;
+            if(/[^A-Za-z0-9]/.test(password)) strength++;
+
+            strengthIndicator.classList.remove('weak','medium','strong');
+            if(strength <= 2 && password.length > 0) strengthIndicator.classList.add('weak');
+            else if(strength <= 3) strengthIndicator.classList.add('medium');
+            else if(strength >= 4) strengthIndicator.classList.add('strong');
+        });
+
+        // Email validation feedback
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(email && !emailRegex.test(email)){
+                this.style.borderColor = '#ef4444';
+                this.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+            } else {
+                this.style.borderColor = '#e2e8f0';
+                this.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
